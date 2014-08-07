@@ -1,13 +1,12 @@
 package main
 
 import (
-	"./test"
+	"./streamer"
 	"fmt"
 	"github.com/thoj/go-ircevent"
 )
 
 func main() {
-	test.Bla()
 	channel := "#test" //#r/dota2"
 	con := irc.IRC("matchbot", "matchbot")
 	err := con.Connect("irc.quakenet.org:6667")
@@ -28,7 +27,7 @@ func main() {
 		case "!scores":
 			con.Privmsg(channel, "no scores")
 		case "!streams", "!s":
-			con.Privmsg(channel, "no streams")
+			con.Privmsg(channel, streamer.TopDota2Streams())
 		case "!joke":
 			con.Privmsg(channel, "my mmr")
 		}
