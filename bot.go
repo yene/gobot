@@ -27,7 +27,9 @@ func main() {
 		case "!scores":
 			con.Privmsg(channel, "no scores")
 		case "!streams", "!s":
-			con.Privmsg(channel, streamer.TopDota2Streams())
+			for _, g := range streamer.FavoriteDota2Streams() {
+				con.Privmsg(channel, g)
+			}
 		case "!joke":
 			con.Privmsg(channel, "my mmr")
 		}
