@@ -1,11 +1,13 @@
 package main
 
 import (
+	"./test"
 	"fmt"
 	"github.com/thoj/go-ircevent"
 )
 
 func main() {
+	test.Bla()
 	channel := "#test" //#r/dota2"
 	con := irc.IRC("matchbot", "matchbot")
 	err := con.Connect("irc.quakenet.org:6667")
