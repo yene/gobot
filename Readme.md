@@ -1,4 +1,4 @@
-ircbo
+ircbot
 ===
 
 created for dota2 channel in quakenet
