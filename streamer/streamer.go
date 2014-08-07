@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func FavoriteDota2Streams() {
+func FavoriteDota2Streams() []string {
 	favorites := favoriteStreams()
 	concatenated := strings.Replace(favorites, "\n", ",", -1)
 	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=10&channel=" + concatenated
@@ -28,10 +28,13 @@ func FavoriteDota2Streams() {
 		panic(err)
 	}
 
+	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
-		fmt.Println("Stream: " + g.Channel.Name + " - " + g.Channel.Status + " - " + g.Channel.URL)
+		s := fmt.Sprintf("%s (%d) - %s - %s", g.Channel.Name, g.Viewers, g.Channel.Status, g.Channel.URL)
+		sslice = append(sslice, s)
 	}
 
+	return sslice
 }
 
 func TopDota2Streams() {
@@ -99,11 +102,11 @@ type JSONResult struct {
 
 type JSONStreams struct {
 	Channel JSONChannel `json:"channel"`
+	Viewers int         `json:"viewers"`
 }
 
 type JSONChannel struct {
 	Name   string `json:"display_name"`
 	URL    string `json:"url"`
 	Status string `json:"status"`
-	Views  int    `json:"views"`
 }
