@@ -37,7 +37,7 @@ func FavoriteDota2Streams() []string {
 	return sslice
 }
 
-func TopDota2Streams() {
+func TopDota2Streams() []string {
 	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=10"
 	res, err := http.Get(requestURL)
 	if err != nil {
@@ -54,11 +54,15 @@ func TopDota2Streams() {
 		panic(err)
 	}
 
+	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
 		if !isBlacklisted(g.Channel.Name) {
-			fmt.Println("Stream: " + g.Channel.Name + " - " + g.Channel.Status + " - " + g.Channel.URL)
+			s := fmt.Sprintf("%s (%d) - %s - %s", g.Channel.Name, g.Viewers, g.Channel.Status, g.Channel.URL)
+			sslice = append(sslice, s)
 		}
 	}
+
+	return sslice
 }
 
 func clientID() string {
