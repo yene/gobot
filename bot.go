@@ -8,7 +8,7 @@ import (
 
 func main() {
 	channel := "#test" //#r/dota2"
-	con := irc.IRC("matchbot", "matchbot")
+	con := irc.IRC("7kMMR", "7kMMR")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
 		fmt.Println("Failed connecting")
@@ -26,8 +26,12 @@ func main() {
 			con.Privmsg(channel, "no help")
 		case "!scores":
 			con.Privmsg(channel, "no scores")
-		case "!streams", "!s":
+		case "!favorites", "!f":
 			for _, g := range streamer.FavoriteDota2Streams() {
+				con.Privmsg(channel, g)
+			}
+		case "!streams", "!s":
+			for _, g := range streamer.TopDota2Streams() {
 				con.Privmsg(channel, g)
 			}
 		case "!joke":
