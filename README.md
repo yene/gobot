@@ -1,8 +1,9 @@
-ircbot
+gobot
 ===
 
-created for dota2 channel in quakenet
-it lets you use commands to show current games, streams n stuff
+Created for dota2 channel in quakenet.
+Features are split into their own repos.
+This is a learning project.
 
 How to update subtree
 ---
