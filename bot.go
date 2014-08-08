@@ -1,13 +1,13 @@
 package main
 
 import (
-	"./streamer"
+	"./twitch"
 	"fmt"
 	"github.com/thoj/go-ircevent"
 )
 
 func main() {
-	channel := "#r/dota2" //#r/dota2"
+	channel := "#test" //#r/dota2"
 	con := irc.IRC("Lina", "Lina")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
@@ -27,18 +27,17 @@ func main() {
 		case "!scores":
 			con.Privmsg(channel, "no scores")
 		case "!favorites", "!f":
-			for _, g := range streamer.FavoriteDota2Streams() {
+			for _, g := range twitch.FavoriteDota2Streams() {
 				con.Privmsg(channel, g)
 			}
 		case "!streams", "!s":
-			for _, g := range streamer.TopDota2Streams() {
+			for _, g := range twitch.TopDota2Streams() {
 				con.Privmsg(channel, g)
 			}
 		case "!relax":
 			con.Privmsg(channel, "People forget that they also win games because the enemies are feeding and are shit.")
 			// con.Privmsg(channel, "MMR is not bugged or rigged or anything. Get better, you'll end up with better MMR.")
 			// con.Privmsg(channel, "Stop crying that "I ended up with 2500 because my team mates suck". No. You ended up 2,5k because you suck. ")
-		}
 		case "!joke":
 			con.Privmsg(channel, "my MMR")
 		}

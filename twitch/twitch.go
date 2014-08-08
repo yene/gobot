@@ -1,4 +1,4 @@
-package streamer
+package twitch
 
 import (
 	"encoding/json"
