@@ -1,7 +1,7 @@
-Streamer
+Twitch
 ====
 
-a little script that check who is streaming on twitch
+Some functions that return filtered live streams from dota2.
 
 source
 * https://github.com/justintv/twitch-api
