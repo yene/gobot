@@ -54,11 +54,18 @@ func TopDota2Streams() []string {
 		panic(err)
 	}
 
+	limitOfStreams := 4
+	c := 0
+
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
+		if c == limitOfStreams {
+			break
+		}
 		if !isBlacklisted(g.Channel.Name) {
 			s := fmt.Sprintf("%s (%d) - %s - %s", g.Channel.Name, g.Viewers, g.Channel.Status, g.Channel.URL)
 			sslice = append(sslice, s)
+			c++
 		}
 	}
 
