@@ -30,7 +30,7 @@ func FavoriteDota2Streams() []string {
 
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
-		s := fmt.Sprintf("%s (%d) - %s - %s", g.Channel.Name, g.Viewers, g.Channel.Status, g.Channel.URL)
+		s := fmt.Sprintf("%s - %s - %s", g.Channel.Name, g.Channel.Status, g.Channel.URL)
 		sslice = append(sslice, s)
 	}
 
