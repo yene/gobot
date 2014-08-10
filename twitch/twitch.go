@@ -12,7 +12,7 @@ import (
 func FavoriteDota2Streams() []string {
 	favorites := favoriteStreams()
 	concatenated := strings.Replace(favorites, "\n", ",", -1)
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=10&channel=" + concatenated
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&channel=" + concatenated
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
