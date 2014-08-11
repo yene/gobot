@@ -5,6 +5,7 @@ import (
 	"./wisdom"
 	"fmt"
 	"github.com/thoj/go-ircevent"
+	"strings"
 	"time"
 )
 
@@ -13,7 +14,7 @@ var favorites []string
 func main() {
 	favorites = twitch.FavoriteDota2Streams()
 	channel := "#test" //#r/dota2"
-	con := irc.IRC("Lina", "Lina")
+	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
 		fmt.Println("Failed connecting")
@@ -24,20 +25,16 @@ func main() {
 	})
 	con.AddCallback("PRIVMSG", func(e *irc.Event) {
 		switch e.Message() {
-		//case "!matches", "!m":
-		//con.Privmsg(channel, "no matches")
+		case "!matches", "!m":
+			con.Privmsg(channel, "no matches")
 		case "!help":
 			con.Privmsg(channel, "no help")
 		case "!scores":
 			con.Privmsg(channel, "no scores")
 		case "!favorites", "!f":
-			for _, g := range twitch.FavoriteDota2Streams() {
-				con.Privmsg(channel, g)
-			}
+			con.Privmsg(channel, strings.Join(twitch.FavoriteDota2Streams(), " - "))
 		case "!streams", "!s":
-			for _, g := range twitch.TopDota2Streams() {
-				con.Privmsg(channel, g)
-			}
+			con.Privmsg(channel, strings.Join(twitch.TopDota2Streams(), " - "))
 		case "!relax", "!wisdom":
 			con.Privmsg(channel, wisdom.RandomWisdom())
 		case "!joke":
@@ -50,7 +47,7 @@ func main() {
 			newFavorites := twitch.FavoriteDota2Streams()
 			for _, g := range newFavorites {
 				if !inisdeFavorites(g) {
-					con.Privmsg(channel, g)
+					con.Privmsg(channel, g+" started streaming.")
 				}
 			}
 			favorites = newFavorites

@@ -30,7 +30,7 @@ func FavoriteDota2Streams() []string {
 
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
-		s := fmt.Sprintf("%s - %s - %s", g.Channel.Name, g.Channel.Status, g.Channel.URL)
+		s := fmt.Sprintf("\u0002%s\u000F %s", g.Channel.Name, g.Channel.URL)
 		sslice = append(sslice, s)
 	}
 
@@ -63,7 +63,7 @@ func TopDota2Streams() []string {
 			break
 		}
 		if !isBlacklisted(g.Channel.Name) && g.Viewers > 1000 {
-			s := fmt.Sprintf("%s (%d) - %s - %s", g.Channel.Name, g.Viewers, g.Channel.Status, g.Channel.URL)
+			s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.Name, g.Viewers, g.Channel.URL)
 			sslice = append(sslice, s)
 			c++
 		}
