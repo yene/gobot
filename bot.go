@@ -13,7 +13,7 @@ var favorites []string
 
 func main() {
 	favorites = twitch.FavoriteDota2Streams()
-	channel := "#test" //#r/dota2"
+	channel := "#r/dota2"
 	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
@@ -42,14 +42,29 @@ func main() {
 		}
 	})
 	go func() {
+		var changed bool
 		for {
+			changed = false
 			time.Sleep(time.Second * 30)
 			newFavorites := twitch.FavoriteDota2Streams()
+			if len(newFavorites) == 0 {
+				continue // sometimes the api delivers no results
+			}
+
 			for _, g := range newFavorites {
 				if !inisdeFavorites(g) {
 					con.Privmsg(channel, g+" started streaming.")
+					changed = true
 				}
 			}
+
+			if changed {
+				con.Privmsg("yener", "old favs")
+				con.Privmsg("yener", strings.Join(favorites, ", "))
+				con.Privmsg("yener", "new favs")
+				con.Privmsg("yener", strings.Join(newFavorites, ", "))
+			}
+
 			favorites = newFavorites
 		}
 	}()
