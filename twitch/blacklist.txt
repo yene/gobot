@@ -8,3 +8,4 @@ a1taoda
 ns_vp
 typical_dota
 starladder1
+virtuspro1dota
