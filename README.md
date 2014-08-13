@@ -5,6 +5,11 @@ Created for dota2 channel in quakenet.
 Features are split into their own repos. 
 This is a learning project.
 
+
+Dependencies
+---
+* go get github.com/thoj/go-ircevent
+
 How to update subtree
 ---
 * git subtree pull --prefix=streamer --squash streamer master
@@ -16,4 +21,4 @@ Notes
 * add current matches to bot (no public api, i think gets only transfered over udp+protobuf)
 * add dotabuff last match to bot
 * add dotabuff hero stats to bot
-
+* special rules for twitch stream that stream games: print under !matches with stream title

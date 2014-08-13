@@ -7,7 +7,37 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 )
+
+var favorites []string
+
+func WatchFavorites(callback func(m string)) {
+	favorites = FavoriteDota2Streams()
+	for {
+		time.Sleep(time.Second * 30)
+		newFavorites := FavoriteDota2Streams()
+		if len(newFavorites) == 0 {
+			continue // sometimes the api delivers no results
+		}
+
+		for _, g := range newFavorites {
+			if !inisdeFavorites(g) {
+				callback(g + " started streaming.")
+			}
+		}
+		favorites = newFavorites
+	}
+}
+
+func inisdeFavorites(a string) bool {
+	for _, g := range favorites {
+		if g == a {
+			return true
+		}
+	}
+	return false
+}
 
 func FavoriteDota2Streams() []string {
 	favorites := favoriteStreams()

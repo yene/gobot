@@ -6,13 +6,9 @@ import (
 	"fmt"
 	"github.com/thoj/go-ircevent"
 	"strings"
-	"time"
 )
 
-var favorites []string
-
 func main() {
-	favorites = twitch.FavoriteDota2Streams()
 	channel := "#r/dota2"
 	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
@@ -41,41 +37,10 @@ func main() {
 			con.Privmsg(channel, "my MMR")
 		}
 	})
-	go func() {
-		var changed bool
-		for {
-			changed = false
-			time.Sleep(time.Second * 30)
-			newFavorites := twitch.FavoriteDota2Streams()
-			if len(newFavorites) == 0 {
-				continue // sometimes the api delivers no results
-			}
 
-			for _, g := range newFavorites {
-				if !inisdeFavorites(g) {
-					con.Privmsg(channel, g+" started streaming.")
-					changed = true
-				}
-			}
+	go twitch.WatchFavorites(func(m string) {
+		con.Privmsg(channel, m)
+	})
 
-			if changed {
-				con.Privmsg("yener", "old favs")
-				con.Privmsg("yener", strings.Join(favorites, ", "))
-				con.Privmsg("yener", "new favs")
-				con.Privmsg("yener", strings.Join(newFavorites, ", "))
-			}
-
-			favorites = newFavorites
-		}
-	}()
 	con.Loop()
-}
-
-func inisdeFavorites(a string) bool {
-	for _, g := range favorites {
-		if g == a {
-			return true
-		}
-	}
-	return false
 }
