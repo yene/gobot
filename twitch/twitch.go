@@ -84,7 +84,7 @@ func TopDota2Streams() []string {
 		panic(err)
 	}
 
-	limitOfStreams := 4
+	limitOfStreams := 5
 	c := 0
 
 	sslice := make([]string, 0)
@@ -92,7 +92,7 @@ func TopDota2Streams() []string {
 		if c == limitOfStreams {
 			break
 		}
-		if !isBlacklisted(g.Channel.Name) && g.Viewers > 1000 {
+		if !isBlacklisted(g.Channel.Name) && g.Viewers > 800 && !isRebroadcast(g.Channel.Status) {
 			s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.DisplayName, g.Viewers, g.Channel.URL)
 			sslice = append(sslice, s)
 			c++
@@ -116,6 +116,11 @@ func favoriteStreams() string {
 		panic(e)
 	}
 	return string(file)
+}
+
+func isRebroadcast(stream string) bool {
+	s := strings.ToLower(stream)
+	return strings.Contains(s, "rebroadcast")
 }
 
 func blacklistStreams() []string {
