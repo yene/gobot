@@ -68,7 +68,7 @@ func FavoriteDota2Streams() []string {
 }
 
 func TopDota2Streams() []string {
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=10"
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=15"
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
@@ -92,7 +92,7 @@ func TopDota2Streams() []string {
 		if c == limitOfStreams {
 			break
 		}
-		if !isBlacklisted(g.Channel.Name) && g.Viewers > 800 && !isRebroadcast(g.Channel.Status) {
+		if !isBlacklisted(g.Channel.Name) && g.Viewers > 100 && !isRebroadcast(g.Channel.Status) {
 			s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.DisplayName, g.Viewers, g.Channel.URL)
 			sslice = append(sslice, s)
 			c++
@@ -131,8 +131,16 @@ func blacklistStreams() []string {
 	return strings.Split(string(file), "\n")
 }
 
+func russianStreams() []string {
+	file, e := ioutil.ReadFile("./russians.txt")
+	if e != nil {
+		panic(e)
+	}
+	return strings.Split(string(file), "\n")
+}
+
 func isBlacklisted(stream string) bool {
-	blacklist := blacklistStreams()
+	blacklist := russianStreams()
 	for _, b := range blacklist {
 		if b == stream {
 			return true
