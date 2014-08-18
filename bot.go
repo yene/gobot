@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	channel := "#test" //#r/dota2"
+	channel := "#r/dota2"
 	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
