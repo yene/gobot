@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	channel := "#r/dota2"
+	channel := "#test" //#r/dota2"
 	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
@@ -22,7 +22,7 @@ func main() {
 	con.AddCallback("PRIVMSG", func(e *irc.Event) {
 		switch e.Message() {
 		case "!matches", "!m":
-			con.Privmsg(channel, "no matches")
+			con.Privmsg(channel, strings.Join(twitch.TournamentStreams(), " - "))
 		case "!help":
 			con.Privmsg(channel, "no help")
 		case "!scores":
@@ -39,6 +39,9 @@ func main() {
 	})
 
 	go twitch.WatchFavorites(func(m string) {
+		con.Privmsg(channel, m)
+	})
+	go twitch.WatchTournaments(func(m string) {
 		con.Privmsg(channel, m)
 	})
 

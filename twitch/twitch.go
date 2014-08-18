@@ -11,6 +11,7 @@ import (
 )
 
 var favorites []string
+var tournaments []string
 
 func WatchFavorites(callback func(m string)) {
 	favorites = FavoriteDota2Streams()
@@ -30,6 +31,24 @@ func WatchFavorites(callback func(m string)) {
 	}
 }
 
+func WatchTournaments(callback func(m string)) {
+	tournaments = TournamentStreams()
+	for {
+		time.Sleep(time.Second * 30)
+		newTournaments := TournamentStreams()
+		if len(tournaments) == 0 {
+			continue // sometimes the api delivers no results
+		}
+
+		for _, g := range newTournaments {
+			if !inisdeFavorites(g) {
+				callback(g)
+			}
+		}
+		tournaments = newTournaments
+	}
+}
+
 func inisdeFavorites(a string) bool {
 	for _, g := range favorites {
 		if g == a {
@@ -40,8 +59,8 @@ func inisdeFavorites(a string) bool {
 }
 
 func FavoriteDota2Streams() []string {
-	favorites := favoriteStreams()
-	concatenated := strings.Replace(favorites, "\n", ",", -1)
+	f := favoriteList()
+	concatenated := strings.Replace(f, "\n", ",", -1)
 	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&channel=" + concatenated
 	res, err := http.Get(requestURL)
 	if err != nil {
@@ -61,6 +80,37 @@ func FavoriteDota2Streams() []string {
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
 		s := fmt.Sprintf("\u0002%s\u000F %s", g.Channel.DisplayName, g.Channel.URL)
+		sslice = append(sslice, s)
+	}
+
+	return sslice
+}
+
+func TournamentStreams() []string {
+	t := tournamentsList()
+	concatenated := strings.Replace(t, "\n", ",", -1)
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&channel=" + concatenated
+	res, err := http.Get(requestURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	streams, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var dat JSONResult
+	if err := json.Unmarshal(streams, &dat); err != nil {
+		panic(err)
+	}
+
+	sslice := make([]string, 0)
+	for _, g := range dat.Streams {
+		if isRebroadcast(g.Channel.Status) {
+			continue
+		}
+		s := fmt.Sprintf("\u0002%s\u000F %s %s", g.Channel.DisplayName, g.Channel.Status, g.Channel.URL)
 		sslice = append(sslice, s)
 	}
 
@@ -110,8 +160,16 @@ func clientID() string {
 	return string(file)
 }
 
-func favoriteStreams() string {
+func favoriteList() string {
 	file, e := ioutil.ReadFile("./favorites.txt")
+	if e != nil {
+		panic(e)
+	}
+	return string(file)
+}
+
+func tournamentsList() string {
+	file, e := ioutil.ReadFile("./tournaments.txt")
 	if e != nil {
 		panic(e)
 	}
