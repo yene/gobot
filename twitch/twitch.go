@@ -23,7 +23,7 @@ func WatchFavorites(callback func(m string)) {
 		}
 
 		for _, g := range newFavorites {
-			if !inisdeFavorites(g) {
+			if !inside(favorites, g) {
 				callback(g + " started streaming.")
 			}
 		}
@@ -36,12 +36,12 @@ func WatchTournaments(callback func(m string)) {
 	for {
 		time.Sleep(time.Second * 30)
 		newTournaments := TournamentStreams()
-		if len(tournaments) == 0 {
+		if len(newTournaments) == 0 {
 			continue // sometimes the api delivers no results
 		}
 
 		for _, g := range newTournaments {
-			if !inisdeFavorites(g) {
+			if !inside(tournaments, g) {
 				callback(g)
 			}
 		}
@@ -49,9 +49,9 @@ func WatchTournaments(callback func(m string)) {
 	}
 }
 
-func inisdeFavorites(a string) bool {
-	for _, g := range favorites {
-		if g == a {
+func inside(haystack []string, needle string) bool {
+	for _, g := range haystack {
+		if g == needle {
 			return true
 		}
 	}
@@ -199,6 +199,12 @@ func russianStreams() []string {
 
 func isBlacklisted(stream string) bool {
 	blacklist := russianStreams()
+	for _, b := range blacklist {
+		if b == stream {
+			return true
+		}
+	}
+	blacklist = blacklistStreams()
 	for _, b := range blacklist {
 		if b == stream {
 			return true
