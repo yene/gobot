@@ -110,7 +110,7 @@ func TournamentStreams() []string {
 		if isRebroadcast(g.Channel.Status) {
 			continue
 		}
-		s := fmt.Sprintf("\u0002%s\u000F %s %s", g.Channel.DisplayName, g.Channel.Status, g.Channel.URL)
+		s := fmt.Sprintf("%s %s", g.Channel.Status, g.Channel.URL)
 		sslice = append(sslice, s)
 	}
 
