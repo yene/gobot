@@ -13,6 +13,7 @@ dubastv
 followjotm
 gnumme
 godhunt
+gsstudio_dota
 immunepwnz
 inmateoo
 inozemec
