@@ -22,7 +22,12 @@ func main() {
 	con.AddCallback("PRIVMSG", func(e *irc.Event) {
 		switch e.Message() {
 		case "!matches", "!m", "!t", "!tournament":
-			con.Privmsg(channel, strings.Join(twitch.TournamentStreams(), " - "))
+			s := strings.Join(twitch.TournamentStreams(), " - ")
+			if len(s) == 0 {
+				con.Privmsg(channel, "No tournaments live.")
+			} else {
+				con.Privmsg(channel, s)
+			}
 		case "!all":
 			con.Privmsg(channel, strings.Join(twitch.Dota2Streams(), " - "))
 		case "!help":
