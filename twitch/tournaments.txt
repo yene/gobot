@@ -3,4 +3,5 @@ dotastarladder_en
 esltv
 goldenesports1
 joindotablue
+joindotacommunity
 joindotared
