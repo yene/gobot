@@ -152,6 +152,31 @@ func TopDota2Streams() []string {
 	return sslice
 }
 
+func Dota2Streams() []string {
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=5"
+	res, err := http.Get(requestURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	streams, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var dat JSONResult
+	if err := json.Unmarshal(streams, &dat); err != nil {
+		panic(err)
+	}
+
+	sslice := make([]string, 0)
+	for _, g := range dat.Streams {
+		s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.DisplayName, g.Viewers, g.Channel.URL)
+		sslice = append(sslice, s)
+	}
+	return sslice
+}
+
 func clientID() string {
 	file, e := ioutil.ReadFile("./client.id")
 	if e != nil {

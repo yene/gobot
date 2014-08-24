@@ -23,6 +23,8 @@ func main() {
 		switch e.Message() {
 		case "!matches", "!m", "!t", "!tournament":
 			con.Privmsg(channel, strings.Join(twitch.TournamentStreams(), " - "))
+		case "!all":
+			con.Privmsg(channel, strings.Join(twitch.Dota2Streams(), " - "))
 		case "!help":
 			con.Privmsg(channel, "no help")
 		case "!scores":
