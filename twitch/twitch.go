@@ -107,11 +107,14 @@ func TournamentStreams() []string {
 
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
-		if isRebroadcast(g.Channel.Status) || !containsVersus(g.Channel.Status) {
+		if isRebroadcast(g.Channel.Status) {
 			continue
 		}
-		s := fmt.Sprintf("%s %s", g.Channel.Status, g.Channel.URL)
-		sslice = append(sslice, s)
+
+		if containsVersus(g.Channel.Status) || containsLive(g.Channel.Status) {
+			s := fmt.Sprintf("%s %s", g.Channel.Status, g.Channel.URL)
+			sslice = append(sslice, s)
+		}
 	}
 
 	return sslice
@@ -209,6 +212,11 @@ func isRebroadcast(stream string) bool {
 func containsVersus(stream string) bool {
 	s := strings.ToLower(stream)
 	return strings.Contains(s, " vs ")
+}
+
+func containsLive(stream string) bool {
+	s := strings.ToLower(stream)
+	return strings.Contains(s, "live")
 }
 
 func blacklistStreams() []string {
