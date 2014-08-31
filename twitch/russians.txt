@@ -13,6 +13,7 @@ cheatbanned
 crystaldota
 dreadztv
 dubastv
+environment1337
 fincherog
 followjotm
 gnumme
