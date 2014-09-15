@@ -86,6 +86,34 @@ func FavoriteDota2Streams() []string {
 	return sslice
 }
 
+func RussianDota2Streams() []string {
+	f := russianList()
+	concatenated := strings.Replace(f, "\n", ",", -1)
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&channel=" + concatenated
+	res, err := http.Get(requestURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	streams, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var dat JSONResult
+	if err := json.Unmarshal(streams, &dat); err != nil {
+		panic(err)
+	}
+
+	sslice := make([]string, 0)
+	for _, g := range dat.Streams {
+		s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.DisplayName, g.Viewers, g.Channel.URL)
+		sslice = append(sslice, s)
+	}
+
+	return sslice
+}
+
 func TournamentStreams() []string {
 	t := tournamentsList()
 	concatenated := strings.Replace(t, "\n", ",", -1)
@@ -190,6 +218,14 @@ func clientID() string {
 
 func favoriteList() string {
 	file, e := ioutil.ReadFile("./favorites.txt")
+	if e != nil {
+		panic(e)
+	}
+	return string(file)
+}
+
+func russianList() string {
+	file, e := ioutil.ReadFile("./russians.txt")
 	if e != nil {
 		panic(e)
 	}

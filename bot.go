@@ -28,6 +28,8 @@ func main() {
 			} else {
 				con.Privmsg(channel, s)
 			}
+		case "!russians", "!r":
+			con.Privmsg(channel, strings.Join(twitch.RussianDota2Streams(), " - "))
 		case "!all":
 			con.Privmsg(channel, strings.Join(twitch.Dota2Streams(), " - "))
 		case "!help":
