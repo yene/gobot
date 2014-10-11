@@ -5,3 +5,4 @@ nomadtv
 re_loadtv
 tcnjudro
 gamevolutioninc
+brasilgamecup
