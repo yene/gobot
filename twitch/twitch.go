@@ -165,7 +165,7 @@ func TopDota2Streams() []string {
 		panic(err)
 	}
 
-	limitOfStreams := 4
+	limitOfStreams := 5
 	c := 0
 
 	sslice := make([]string, 0)
