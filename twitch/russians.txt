@@ -13,7 +13,9 @@ cartmanzbs
 ch1ba
 cheatbanned
 crystaldota
+d2l_ru
 dreadztv
+dreamleague_v1lat
 dubastv
 environment1337
 fincherog
@@ -21,6 +23,7 @@ followjotm
 gamazavr
 gnumme
 godhunt
+gspotdota
 gsstudio_dota
 heflatv5
 illidanstrdoto
