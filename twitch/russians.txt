@@ -25,6 +25,7 @@ gnumme
 godhunt
 gspotdota
 gsstudio_dota
+gsstudio_dota2
 heflatv5
 illidanstrdoto
 imbaelf
@@ -48,6 +49,7 @@ nemesis_tv
 nomadtv2
 ns_vp
 ogswizzy
+russianteamdota
 rxnexus
 shachlos
 shubatheslayer
