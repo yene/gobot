@@ -140,7 +140,7 @@ func TopDota2Streams() []string {
 		log.Fatal(err)
 	}
 
-	limitOfStreams := 5
+	limitOfStreams := 8
 	c := 0
 
 	sslice := make([]string, 0)
