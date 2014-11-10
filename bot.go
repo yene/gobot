@@ -2,14 +2,13 @@ package main
 
 import (
 	"./twitch"
-	"./wisdom"
 	"fmt"
 	"github.com/thoj/go-ircevent"
 	"strings"
 )
 
 func main() {
-	channel := "#r/test"
+	channel := "#r/dota2"
 	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
