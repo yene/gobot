@@ -80,34 +80,9 @@ func FavoriteDota2Streams() []string {
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
 		s := fmt.Sprintf("\u0002%s\u000F %s", g.Channel.DisplayName, g.Channel.URL)
-		sslice = append(sslice, s)
-	}
-
-	return sslice
-}
-
-func RussianDota2Streams() []string {
-	f := russianList()
-	concatenated := strings.Replace(f, "\n", ",", -1)
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&channel=" + concatenated
-	res, err := http.Get(requestURL)
-	if err != nil {
-		log.Fatal(err)
-	}
-	streams, err := ioutil.ReadAll(res.Body)
-	res.Body.Close()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var dat JSONResult
-	if err := json.Unmarshal(streams, &dat); err != nil {
-		panic(err)
-	}
-
-	sslice := make([]string, 0)
-	for _, g := range dat.Streams {
-		s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.DisplayName, g.Viewers, g.Channel.URL)
+		if len(g.Channel.URL) == 0 { // sometimes the url is non existent
+			continue
+		}
 		sslice = append(sslice, s)
 	}
 
@@ -149,7 +124,7 @@ func TournamentStreams() []string {
 }
 
 func TopDota2Streams() []string {
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=15"
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&language=en&limit=15"
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
@@ -184,6 +159,7 @@ func TopDota2Streams() []string {
 }
 
 func Dota2Streams() []string {
+	// get all dota streams, even russians oO
 	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=4"
 	res, err := http.Get(requestURL)
 	if err != nil {
@@ -224,14 +200,6 @@ func favoriteList() string {
 	return string(file)
 }
 
-func russianList() string {
-	file, e := ioutil.ReadFile("./russians.txt")
-	if e != nil {
-		panic(e)
-	}
-	return string(file)
-}
-
 func tournamentsList() string {
 	file, e := ioutil.ReadFile("./tournaments.txt")
 	if e != nil {
@@ -263,22 +231,8 @@ func blacklistStreams() []string {
 	return strings.Split(string(file), "\n")
 }
 
-func russianStreams() []string {
-	file, e := ioutil.ReadFile("./russians.txt")
-	if e != nil {
-		panic(e)
-	}
-	return strings.Split(string(file), "\n")
-}
-
 func isBlacklisted(stream string) bool {
-	blacklist := russianStreams()
-	for _, b := range blacklist {
-		if b == stream {
-			return true
-		}
-	}
-	blacklist = blacklistStreams()
+	blacklist := blacklistStreams()
 	for _, b := range blacklist {
 		if b == stream {
 			return true

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	channel := "#r/dota2"
+	channel := "#r/test"
 	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
@@ -28,8 +28,6 @@ func main() {
 			} else {
 				con.Privmsg(channel, s)
 			}
-		case "!russians", "!r":
-			con.Privmsg(channel, strings.Join(twitch.RussianDota2Streams(), " - "))
 		case "!all":
 			con.Privmsg(channel, strings.Join(twitch.Dota2Streams(), " - "))
 		case "!help":
