@@ -140,7 +140,7 @@ func TopDota2Streams() []string {
 		log.Fatal(err)
 	}
 
-	limitOfStreams := 8
+	limitOfStreams := 5
 	c := 0
 
 	sslice := make([]string, 0)
@@ -160,7 +160,7 @@ func TopDota2Streams() []string {
 
 func Dota2Streams() []string {
 	// get all dota streams, even russians oO
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=4"
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=6"
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
