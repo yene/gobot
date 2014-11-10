@@ -28,10 +28,10 @@ func main() {
 			} else {
 				con.Privmsg(channel, s)
 			}
-		case "!all":
+		case "!all", "!a":
 			con.Privmsg(channel, strings.Join(twitch.Dota2Streams(), " - "))
-		case "!help":
-			con.Privmsg(channel, "no help")
+		case "!help", "!h":
+			con.Privmsg(channel, "Use !s for filtered streams, !a for all streams.")
 		case "!scores":
 			con.Privmsg(channel, "no scores")
 		case "!favorites", "!f":
