@@ -74,7 +74,7 @@ func FavoriteDota2Streams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	sslice := make([]string, 0)
@@ -105,7 +105,7 @@ func TournamentStreams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	sslice := make([]string, 0)
@@ -137,7 +137,7 @@ func TopDota2Streams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	limitOfStreams := 5
@@ -173,7 +173,7 @@ func Dota2Streams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	sslice := make([]string, 0)
