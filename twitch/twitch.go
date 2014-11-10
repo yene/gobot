@@ -123,7 +123,7 @@ func TournamentStreams() []string {
 	return sslice
 }
 
-func TopDota2Streams() []string {
+func FilteredDota2Streams() []string {
 	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&language=en&limit=15"
 	res, err := http.Get(requestURL)
 	if err != nil {
