@@ -38,10 +38,6 @@ func main() {
 			con.Privmsg(channel, strings.Join(twitch.FavoriteDota2Streams(), " - "))
 		case "!streams", "!s":
 			con.Privmsg(channel, strings.Join(twitch.FilteredDota2Streams(), " - "))
-		case "!relax", "!wisdom":
-			con.Privmsg(channel, wisdom.RandomWisdom())
-		case "!joke":
-			con.Privmsg(channel, "my MMR")
 		}
 	})
 

@@ -160,7 +160,7 @@ func FilteredDota2Streams() []string {
 
 func Dota2Streams() []string {
 	// get all dota streams, even russians oO
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=6"
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=8"
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
@@ -178,7 +178,7 @@ func Dota2Streams() []string {
 
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
-		s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.DisplayName, g.Viewers, g.Channel.URL)
+		s := fmt.Sprintf("\u0002%s\u000F %s", g.Channel.DisplayName, g.Channel.URL)
 		sslice = append(sslice, s)
 	}
 	return sslice
