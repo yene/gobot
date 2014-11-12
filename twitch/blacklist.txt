@@ -1,5 +1,5 @@
-taodota
 brasilgamecup
+d2l_es
 drayswe
 gamerstudiotv
 gamevolutioninc
@@ -8,5 +8,6 @@ mazarin1k
 mrchocodota
 nomadtv
 re_loadtv
+taodota
 tcnjudro
-d2l_es
+w4dtv
