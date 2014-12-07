@@ -1,0 +1,53 @@
+    If the hero in your lane is missing for some time, tell your teammates so they don't get ganked!
+    ---
+    You can level up your abilities by holding Control and hitting the ability shortcut key
+    ---
+    Make sure someone on your team is buying wards to ensure you get map vision
+    ---
+    Be sure your team has a courier so that you can stay in your lane gaining experience and gold, instead of needing to return to the shop to buy items.
+    ---
+    Sentry Wards reveal invisible units and enemy wards.
+    ---
+    Illusions and other creeps don't dispel Smoke of Deceit, only heroes do.
+    ---
+    Roshan is a lot easier to kill if you reduce his armor.
+    ---
+    Make sure you bring items to restore your health and mana into the lane at the start of the game.
+    ---
+    You can level up your abilities by holding Control and hitting the ability shortcut key.
+    ---
+    Make sure someone on your team is buying Observer Wards to help increase map vision.
+    ---
+    Holding Alt will display additional information in the tooltips of several abilities and items.
+    ---
+    Shift-clicking on shop items will add them to the quick buy.
+    ---
+    Last hitting a tower gives you more gold.
+    ---
+    You can Alt-click your abilities to expose their cooldown to your teammates through chat.
+    ---
+    You can Alt-click enemy heroes in the top bar to message your teammates that they are missing from the lane.
+    ---
+    When Roshan has been killed, he will respawn after 8 to 11 minutes (randomly determined).
+    ---
+    Neutral creeps spawn at the 30 second mark, and then at every minute mark thereafter.
+    ---
+    Shift-Clicking actions or abilities allows you to queue them.
+    ---
+    Some spells can be dodged with blink dagger or invisibility.
+    ---
+    Some projectiles can be dodged with smoke.
+    ---
+    Attacking from an uphill position gives you an advantage as the opponent can miss or lose you in fog of war.
+    ---
+    Try building a Pipe of Insight to negate the enemies magic area of effect damage.
+    ---
+    Shivas Guard and Assault Cuirass are great for boosting your team's armor in an area of effect (AOE).
+    ---
+    When a tower is attacking you, attack-clicking on an allied creep will reset the tower's target.
+    ---
+    Abilities that do physical damage have their effectiveness reduced by armor.
+    ---
+    If a ward is placed close to a neutral creep camp, it will prevent the creeps from spawning.
+    ---
+    Monkey King Bar will give you true strike, which prevents you from missing uphill strikes and prevents your enemies from evading your attack.

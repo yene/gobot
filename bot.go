@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./tips"
 	"./twitch"
 	"fmt"
 	"github.com/thoj/go-ircevent"
@@ -8,7 +9,7 @@ import (
 )
 
 func main() {
-	channel := "#r/dota2"
+	channel := "#test2"
 	con := irc.IRC("Tresdin", "Tresdin")
 	err := con.Connect("irc.quakenet.org:6667")
 	if err != nil {
@@ -37,6 +38,10 @@ func main() {
 			con.Privmsg(channel, strings.Join(twitch.FavoriteDota2Streams(), " - "))
 		case "!streams", "!s":
 			con.Privmsg(channel, strings.Join(twitch.FilteredDota2Streams(), " - "))
+		case "!tip":
+			con.Privmsg(channel, tips.RandomTip())
+		case "!credit":
+			con.Privmsg(channel, "https://github.com/yene/gobot")
 		}
 	})
 
