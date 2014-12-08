@@ -1,53 +1,165 @@
-    If the hero in your lane is missing for some time, tell your teammates so they don't get ganked!
-    ---
-    You can level up your abilities by holding Control and hitting the ability shortcut key
-    ---
-    Make sure someone on your team is buying wards to ensure you get map vision
-    ---
-    Be sure your team has a courier so that you can stay in your lane gaining experience and gold, instead of needing to return to the shop to buy items.
-    ---
-    Sentry Wards reveal invisible units and enemy wards.
-    ---
-    Illusions and other creeps don't dispel Smoke of Deceit, only heroes do.
-    ---
-    Roshan is a lot easier to kill if you reduce his armor.
-    ---
-    Make sure you bring items to restore your health and mana into the lane at the start of the game.
-    ---
-    You can level up your abilities by holding Control and hitting the ability shortcut key.
-    ---
-    Make sure someone on your team is buying Observer Wards to help increase map vision.
-    ---
-    Holding Alt will display additional information in the tooltips of several abilities and items.
-    ---
-    Shift-clicking on shop items will add them to the quick buy.
-    ---
-    Last hitting a tower gives you more gold.
-    ---
-    You can Alt-click your abilities to expose their cooldown to your teammates through chat.
-    ---
-    You can Alt-click enemy heroes in the top bar to message your teammates that they are missing from the lane.
-    ---
-    When Roshan has been killed, he will respawn after 8 to 11 minutes (randomly determined).
-    ---
-    Neutral creeps spawn at the 30 second mark, and then at every minute mark thereafter.
-    ---
-    Shift-Clicking actions or abilities allows you to queue them.
-    ---
-    Some spells can be dodged with blink dagger or invisibility.
-    ---
-    Some projectiles can be dodged with smoke.
-    ---
-    Attacking from an uphill position gives you an advantage as the opponent can miss or lose you in fog of war.
-    ---
-    Try building a Pipe of Insight to negate the enemies magic area of effect damage.
-    ---
-    Shivas Guard and Assault Cuirass are great for boosting your team's armor in an area of effect (AOE).
-    ---
-    When a tower is attacking you, attack-clicking on an allied creep will reset the tower's target.
-    ---
-    Abilities that do physical damage have their effectiveness reduced by armor.
-    ---
-    If a ward is placed close to a neutral creep camp, it will prevent the creeps from spawning.
-    ---
-    Monkey King Bar will give you true strike, which prevents you from missing uphill strikes and prevents your enemies from evading your attack.
+If the hero in your lane is missing for some time, tell your teammates so they don't get ganked!
+---
+You can level up your abilities by holding Control and hitting the ability shortcut key
+---
+Make sure someone on your team is buying wards to ensure you get map vision
+---
+Be sure your team has a courier so that you can stay in your lane gaining experience and gold, instead of needing to return to the shop to buy items.
+---
+Sentry Wards reveal invisible units and enemy wards.
+---
+Illusions and other creeps don't dispel Smoke of Deceit, only heroes do.
+---
+Roshan is a lot easier to kill if you reduce his armor.
+---
+Make sure you bring items to restore your health and mana into the lane at the start of the game.
+---
+You can level up your abilities by holding Control and hitting the ability shortcut key.
+---
+Make sure someone on your team is buying Observer Wards to help increase map vision.
+---
+Holding Alt will display additional information in the tooltips of several abilities and items.
+---
+Shift-clicking on shop items will add them to the quick buy.
+---
+Last hitting a tower gives you more gold.
+---
+You can Alt-click your abilities to expose their cooldown to your teammates through chat.
+---
+You can Alt-click enemy heroes in the top bar to message your teammates that they are missing from the lane.
+---
+When Roshan has been killed, he will respawn after 8 to 11 minutes (randomly determined).
+---
+Neutral creeps spawn at the 30 second mark, and then at every minute mark thereafter.
+---
+Shift-Clicking actions or abilities allows you to queue them.
+---
+Some spells can be dodged with blink dagger or invisibility.
+---
+Some projectiles can be dodged with smoke.
+---
+Attacking from an uphill position gives you an advantage as the opponent can miss or lose you in fog of war.
+---
+Try building a Pipe of Insight to negate the enemies magic area of effect damage.
+---
+Shivas Guard and Assault Cuirass are great for boosting your team's armor in an area of effect (AOE).
+---
+When a tower is attacking you, attack-clicking on an allied creep will reset the tower's target.
+---
+Abilities that do physical damage have their effectiveness reduced by armor.
+---
+If a ward is placed close to a neutral creep camp, it will prevent the creeps from spawning.
+---
+Monkey King Bar will give you true strike, which prevents you from missing uphill strikes and prevents your enemies from evading your attack.
+---
+Anyone can buy wards, and anyone can buy or upgrade the courier. If your team needs something, don't be afraid to buy it.
+---
+Be nice to new players. Everyone has to start somewhere.
+---
+Good luck. Have fun.
+---
+Hero choices matter. Many heroes are strong counters to other heroes, and many hero pairings are far more powerful and useful than any hero is alone.
+---
+Holding Shift allows you to issue actions to be performed in a sequence.
+---
+Make your voice heard! Head to the Dota 2 Workshop and vote for the items you'd like to see sold on the Dota 2 store.
+---
+Many Global Items can be set to Shuffle, causing a different random item to be chosen for that slot after every match.
+---
+Positive reinforcement can go a long way toward victory.
+---
+Prefer hero icons instead of colored symbols on the minimap? You can change it in the settings menu.
+---
+Remember to stand up and stretch between matches.
+---
+Remember: everyone has bad games. Everyone makes mistakes.
+---
+Want the minimap to appear on the other side of the screen? You can change it in the settings menu.
+---
+You can adjust how often hero voices are heard in the settings menu.
+---
+You can download your match replays from the Career Profile menu. A good way to improve is by analyzing your plays from a new perspective!
+---
+You can hold Alt and click on an ability or item to inform your teammates if it is ready, on cooldown, or if you do not have enough mana to use it.
+---
+You can still use items while silenced."
+---
+Accidentally canceled your Town Portal Scroll? The settings menu has an option to make a Stop command required in order to cancel a Teleport.
+---
+Holding Alt and clicking on an item in an enemy hero's inventory will alert your team that the enemy has that item.
+---
+Holding alt and clicking on your Buyback button, or on your gold, will alert your team of your Buyback status.
+---
+Each player automatically earns 1 gold every 0.6 seconds, or 100 gold every minute.
+---
+Town Portal Scrolls can be given to teammates.
+---
+Observer and Sentry Wards cannot be placed inside Roshan's pit.
+---
+Barracks cannot reveal invisible units or wards.
+---
+Buyback has a 6 minute cooldown.
+---
+Each hero has a primary attribute of Strength, Agility, or Intelligence. Every point in your hero's primary attribute increases their attack damage by 1.
+---
+From his third death onward, Roshan will drop Cheese in addition to the Aegis of the Immortal. Using Cheese instantly refills that hero's health and mana.
+---
+Hero illusions are instantly destroyed if they attack Roshan.
+---
+Remember to check your allies' inventories before purchasing an item for its aura effect. A teammate may already have that item, and most auras do not stack.
+---
+Runes can be denied.
+---
+Stun durations from different skills do not stack. You can keep an enemy stunned for longer with careful timing of your team's skills.
+---
+Teleports from Town Portal Scrolls and Boots of Travel are not cancelled by silences or knockbacks.
+---
+The closer a Tower is to its team's Ancient, the more gold its destruction will yield.
+---
+The Secret Shop on the Dire side of the map can be accessed from the northeast corner of Roshan's pit.
+---
+Using a Soul Ring will grant you extra mana even if your mana is already full.
+---
+You can destroy allied Towers when they are below 10% health. Denying a Tower drastically reduces how much gold the enemy receives for its destruction."
+---
+You can use a Quelling Blade to damage enemy wards.
+---
+Always be nice to those who buy Wards and Couriers. Physical Damage, dealt by all regular attacks, some hero abilities, and some items, can be reduced with Armor or blocked by becoming Ethereal.
+---
+Magical Damage, dealt by most hero abilities and items, can be reduced with magic resistance or blocked by magic immunity.
+---
+Abilities that are Unique Attack Modifiers will not draw creep agro when manually cast.
+---
+Activating Manta Style removes several buffs and debuffs, and will cause projectiles that are already in flight to miss.
+---
+After using Buyback, 25% of a hero's remaining respawn time at the time of Buyback is added to their next death.
+---
+Cheese can be sold for 500 gold.
+---
+Composite Damage, dealt by some hero abilities, can be reduced by armor or magic resistance, but cannot be blocked by magic immunity.
+---
+HP Removal damage, dealt by some hero abilities and items, cannot be avoided or reduced. It also will not interrupt healing effects, such as a Salve, or reset the cooldown on a Blink Dagger.
+---
+Pure Damage, dealt by some hero abilities and items, can be blocked with magic immunity, such as by using a Black King Bar. Pure Damage is not affected by magic resistance.
+---
+If you are within range of several auras with the same effect, only the most powerful aura will be active.
+---
+If you know you are about to die, consider entering a neutral creep camp, or going to Roshan, and letting them kill you instead. This will deny the enemy team the gold and experienced earned from your death.
+---
+Melee Barracks regenerate 5 hit points per second. Ranged Barracks do not regenerate.
+---
+One point of Agility increases hero attack speed by 1, as well as 0.14 armor.
+---
+One point of Intelligence adds 13 maximum mana, as well as 0.04 mana regeneration per second.
+---
+One point of Strength adds 19 maximum health, as well as 0.03 health regeneration per second.
+---
+Shadow Blade can still be activated while channeling a Town Portal Scroll.
+---
+Switching Power Treads to Agility while healing allows your heath and mana to restore faster. Just don't forget to switch them back!
+---
+The Aegis of the Immortal can be denied.
+---
+Though illusions are not affected by auras, they will still grant shared auras from their original hero to nearby units.
+---
+You can sell and repurchase a Black King Bar to reset its magic immunity duration.
