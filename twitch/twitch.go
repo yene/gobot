@@ -12,6 +12,7 @@ import (
 
 var favorites []string
 var tournaments []string
+var all []string
 
 func WatchFavorites(callback func(m string)) {
 	favorites = FavoriteDota2Streams()
@@ -49,6 +50,24 @@ func WatchTournaments(callback func(m string)) {
 	}
 }
 
+func WatchAll(callback func(m string)) {
+	all = Dota2Streams()
+	for {
+		time.Sleep(time.Second * 10)
+		newAll := Dota2Streams()
+		if len(newAll) == 0 {
+			continue // sometimes the api delivers no results
+		}
+
+		for _, g := range newAll {
+			if !inside(all, g) {
+				callback(g)
+			}
+		}
+		all = newAll
+	}
+}
+
 func inside(haystack []string, needle string) bool {
 	for _, g := range haystack {
 		if g == needle {
@@ -74,13 +93,15 @@ func FavoriteDota2Streams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
+		fmt.Println("error unmarshalling favorite dota2 stream")
+		ioutil.WriteFile("favorites.json", streams, 0644)
 		log.Fatal(err)
 	}
 
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
 		s := fmt.Sprintf("\u0002%s\u000F %s", g.Channel.DisplayName, g.Channel.URL)
-		if len(g.Channel.URL) == 0 { // sometimes the url is non existent
+		if len(g.Channel.URL) == 0 {
 			continue
 		}
 		sslice = append(sslice, s)
@@ -105,11 +126,17 @@ func TournamentStreams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
+		fmt.Println("error unmarshalling tournament dota2 stream")
+		ioutil.WriteFile("favorites.json", streams, 0644)
 		log.Fatal(err)
 	}
 
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
+		if len(g.Channel.URL) == 0 {
+			continue
+		}
+
 		if isRebroadcast(g.Channel.Status) {
 			continue
 		}
@@ -124,7 +151,7 @@ func TournamentStreams() []string {
 }
 
 func FilteredDota2Streams() []string {
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&language=en&limit=15"
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&broadcaster_language=en&limit=15"
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
@@ -137,6 +164,8 @@ func FilteredDota2Streams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
+		fmt.Println("error unmarshalling filtered dota2 stream")
+		ioutil.WriteFile("favorites.json", streams, 0644)
 		log.Fatal(err)
 	}
 
@@ -148,6 +177,11 @@ func FilteredDota2Streams() []string {
 		if c == limitOfStreams {
 			break
 		}
+
+		if len(g.Channel.URL) == 0 {
+			continue
+		}
+
 		if !isBlacklisted(g.Channel.Name) && g.Viewers > 100 && !isRebroadcast(g.Channel.Status) {
 			s := fmt.Sprintf("\u0002%s\u000F (%d) %s", g.Channel.DisplayName, g.Viewers, g.Channel.URL)
 			sslice = append(sslice, s)
@@ -160,7 +194,7 @@ func FilteredDota2Streams() []string {
 
 func Dota2Streams() []string {
 	// get all dota streams, even russians oO
-	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&limit=8"
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2"
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
@@ -173,11 +207,16 @@ func Dota2Streams() []string {
 
 	var dat JSONResult
 	if err := json.Unmarshal(streams, &dat); err != nil {
+		fmt.Println("error unmarshalling Dota2Streams dota2 stream")
+		ioutil.WriteFile("favorites.json", streams, 0644)
 		log.Fatal(err)
 	}
 
 	sslice := make([]string, 0)
 	for _, g := range dat.Streams {
+		if len(g.Channel.URL) == 0 {
+			continue
+		}
 		s := fmt.Sprintf("\u0002%s\u000F %s", g.Channel.DisplayName, g.Channel.URL)
 		sslice = append(sslice, s)
 	}
@@ -239,6 +278,14 @@ func isBlacklisted(stream string) bool {
 		}
 	}
 	return false
+}
+
+func whitelistStreams() []string {
+	file, e := ioutil.ReadFile("./whitelist.txt")
+	if e != nil {
+		panic(e)
+	}
+	return strings.Split(string(file), "\n")
 }
 
 // JSON structs

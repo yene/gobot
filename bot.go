@@ -32,8 +32,6 @@ func main() {
 			con.Privmsg(channel, strings.Join(twitch.Dota2Streams(), " - "))
 		case "!help", "!h":
 			con.Privmsg(channel, "Use !s for filtered streams, !a for all streams.")
-		case "!scores":
-			con.Privmsg(channel, "no scores")
 		case "!favorites", "!f":
 			con.Privmsg(channel, strings.Join(twitch.FavoriteDota2Streams(), " - "))
 		case "!streams", "!s":
@@ -49,6 +47,10 @@ func main() {
 		con.Privmsg(channel, m)
 	})
 	go twitch.WatchTournaments(func(m string) {
+		con.Privmsg(channel, m)
+	})
+
+	go twitch.WatchAll(func(m string) {
 		con.Privmsg(channel, m)
 	})
 
