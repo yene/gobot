@@ -10,26 +10,83 @@ import (
 	"time"
 )
 
+type Channel struct {
+	Name     string
+	Status   string
+	URL      string
+	Language string
+	Viewers  int
+}
+
 var favorites []string
 var tournaments []string
 var all []string
 
-func WatchFavorites(callback func(m string)) {
-	favorites = FavoriteDota2Streams()
+func UpdateStreams(streams chan []Channel) {
 	for {
 		time.Sleep(time.Second * 30)
-		newFavorites := FavoriteDota2Streams()
-		if len(newFavorites) == 0 {
-			continue // sometimes the api delivers no results
+
+		// get all dota streams, even russians oO
+		requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2"
+		res, err := http.Get(requestURL)
+		if err != nil {
+			log.Print(err)
+			continue
+		}
+		streamsData, err := ioutil.ReadAll(res.Body)
+		res.Body.Close()
+		if err != nil {
+			log.Print(err)
+			continue
 		}
 
-		for _, g := range newFavorites {
-			if !inside(favorites, g) {
-				callback(g + " started streaming.")
-			}
+		var dat JSONResult
+		if err := json.Unmarshal(streamsData, &dat); err != nil {
+			fmt.Println("error unmarshalling Dota2streamsData dota2 stream")
+			ioutil.WriteFile("streamsData.json", streamsData, 0644)
+			log.Print(err)
+			continue
 		}
-		favorites = newFavorites
+
+		cslice := make([]Channel, 0)
+		for _, g := range dat.Streams {
+			if len(g.Channel.URL) == 0 { // skip channels without url, a twitch bug
+				continue
+			}
+			// what do i need url, display status
+			c := Channel{g.Channel.DisplayName, g.Channel.Status, g.Channel.URL, g.Channel.Language, g.Viewers}
+			cslice = append(cslice, c)
+		}
+
+		streams <- cslice
 	}
+}
+
+func WatchFavorites(streams chan []Channel, callback func(m string)) {
+	for s := range streams {
+		bla := ""
+		for _, c := range s {
+			bla += fmt.Sprintf("%s %s %s %s", c.Name, c.Status, c.URL, c.Language)
+
+		}
+		fmt.Println(bla)
+	}
+	/*
+		favorites = FavoriteDota2Streams()
+		for {
+			time.Sleep(time.Second * 30)
+			newFavorites := FavoriteDota2Streams()
+			if len(newFavorites) == 0 {
+				continue // sometimes the api delivers no results
+			}
+
+			for _, g := range newFavorites {
+				if !inside(favorites, g) {
+					callback(g + " started streaming.")
+				}
+			}
+			favorites = newFavorites
+		}*/
 }
 
 func WatchTournaments(callback func(m string)) {
@@ -303,4 +360,5 @@ type JSONChannel struct {
 	Name        string `json:"name"`
 	URL         string `json:"url"`
 	Status      string `json:"status"`
+	Language    string `json:"broadcaster_language"`
 }

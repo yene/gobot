@@ -43,16 +43,22 @@ func main() {
 		}
 	})
 
-	go twitch.WatchFavorites(func(m string) {
-		con.Privmsg(channel, m)
-	})
-	go twitch.WatchTournaments(func(m string) {
-		con.Privmsg(channel, m)
-	})
+	streams := make(chan []twitch.Channel)
 
-	go twitch.WatchAll(func(m string) {
+	go twitch.UpdateStreams(streams)
+
+	go twitch.WatchFavorites(streams, func(m string) {
 		con.Privmsg(channel, m)
 	})
+	/*
+		go twitch.WatchTournaments(func(m string) {
+			con.Privmsg(channel, m)
+		})
+
+		go twitch.WatchAll(func(m string) {
+			con.Privmsg(channel, m)
+		})
+	*/
 
 	con.Loop()
 }
