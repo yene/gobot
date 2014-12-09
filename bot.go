@@ -33,7 +33,7 @@ func main() {
 		case "!help", "!h":
 			con.Privmsg(channel, "Use !s for filtered streams, !a for all streams.")
 		case "!favorites", "!f":
-			con.Privmsg(channel, strings.Join(twitch.FavoriteDota2Streams(), " - "))
+			//con.Privmsg(channel, strings.Join(twitch.FavoriteDota2Streams(), " - "))
 		case "!streams", "!s":
 			con.Privmsg(channel, strings.Join(twitch.FilteredDota2Streams(), " - "))
 		case "!tip":

@@ -11,14 +11,15 @@ import (
 )
 
 type Channel struct {
-	Name     string
-	Status   string
-	URL      string
-	Language string
-	Viewers  int
+	DisplayName string
+	Name        string
+	Status      string
+	URL         string
+	Language    string
+	Viewers     int
 }
 
-var favorites []string
+var existingFavorites []Channel
 var tournaments []string
 var all []string
 
@@ -53,8 +54,7 @@ func UpdateStreams(streams chan []Channel) {
 			if len(g.Channel.URL) == 0 { // skip channels without url, a twitch bug
 				continue
 			}
-			// what do i need url, display status
-			c := Channel{g.Channel.DisplayName, g.Channel.Status, g.Channel.URL, g.Channel.Language, g.Viewers}
+			c := Channel{g.Channel.DisplayName, g.Channel.Name, g.Channel.Status, g.Channel.URL, g.Channel.Language, g.Viewers}
 			cslice = append(cslice, c)
 		}
 
@@ -63,30 +63,18 @@ func UpdateStreams(streams chan []Channel) {
 }
 
 func WatchFavorites(streams chan []Channel, callback func(m string)) {
+	f := favoriteStreams()
 	for s := range streams {
-		bla := ""
-		for _, c := range s {
-			bla += fmt.Sprintf("%s %s %s %s", c.Name, c.Status, c.URL, c.Language)
-
+		newFavorites := make([]Channel, 0)
+		for _, g := range s {
+			if !inside(f, g.Name) && !insideChannel(existingFavorites, g) {
+				newFavorites = append(newFavorites, g)
+				text := fmt.Sprintf("\u0002%s\u000F %s started streaming.", g.DisplayName, g.URL)
+				callback(text)
+			}
 		}
-		fmt.Println(bla)
+		existingFavorites = newFavorites
 	}
-	/*
-		favorites = FavoriteDota2Streams()
-		for {
-			time.Sleep(time.Second * 30)
-			newFavorites := FavoriteDota2Streams()
-			if len(newFavorites) == 0 {
-				continue // sometimes the api delivers no results
-			}
-
-			for _, g := range newFavorites {
-				if !inside(favorites, g) {
-					callback(g + " started streaming.")
-				}
-			}
-			favorites = newFavorites
-		}*/
 }
 
 func WatchTournaments(callback func(m string)) {
@@ -134,6 +122,16 @@ func inside(haystack []string, needle string) bool {
 	return false
 }
 
+func insideChannel(haystack []Channel, needle Channel) bool {
+	for _, g := range haystack {
+		if g == needle {
+			return true
+		}
+	}
+	return false
+}
+
+/*
 func FavoriteDota2Streams() []string {
 	f := favoriteList()
 	concatenated := strings.Replace(f, "\n", ",", -1)
@@ -166,6 +164,7 @@ func FavoriteDota2Streams() []string {
 
 	return sslice
 }
+*/
 
 func TournamentStreams() []string {
 	t := tournamentsList()
@@ -280,20 +279,12 @@ func Dota2Streams() []string {
 	return sslice
 }
 
-func clientID() string {
-	file, e := ioutil.ReadFile("./client.id")
-	if e != nil {
-		panic(e)
-	}
-	return string(file)
-}
-
-func favoriteList() string {
+func favoriteStreams() []string {
 	file, e := ioutil.ReadFile("./favorites.txt")
 	if e != nil {
 		panic(e)
 	}
-	return string(file)
+	return strings.Split(string(file), "\n")
 }
 
 func tournamentsList() string {
