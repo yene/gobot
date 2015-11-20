@@ -1,4 +1,4 @@
-package main
+package matches
 
 import (
 	"encoding/json"
@@ -7,6 +7,36 @@ import (
 	"log"
 	"net/http"
 )
+
+/*
+leagues
+https://api.steampowered.com/IDOTA2Match_570/GetLeagueListing/v1/?key=86F1ACC15C5F0A97465AA051D68122F6
+
+*/
+
+func MajorScore() string {
+	requestURL := "https://api.steampowered.com/IDOTA2Match_570/GetLiveLeagueGames/v0001/?league_id=3671&key=86F1ACC15C5F0A97465AA051D68122F6"
+	res, err := http.Get(requestURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	liveLeagueData, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var games JSONLiveLeagueGamesRoot
+	if err := json.Unmarshal(liveLeagueData, &games); err != nil {
+		panic(err)
+	}
+
+	for _, g := range games.Result.Games {
+		min := int(g.Scoreboard.Duration / 60)
+		return fmt.Sprintf("%v (%d) vs %v (%d) in the %s. %d-%d kills %d minutes in.\n", g.TeamRadiant.TeamName, g.RadiantSeriesWin, g.TeamDire.TeamName, g.DireSeriesWin, g.StageName, g.Scoreboard.Radiant.Score, g.Scoreboard.Dire.Score, min)
+	}
+	return "No Major match found."
+}
 
 func main() {
 	games := liveLeagueGames()
@@ -18,6 +48,7 @@ func main() {
 }
 
 func liveLeagueGames() JSONLiveLeagueGamesRoot {
+	// 3671
 	requestURL := "https://api.steampowered.com/IDOTA2Match_570/GetLiveLeagueGames/v0001/?key=" + apiKey()
 	res, err := http.Get(requestURL)
 	if err != nil {
@@ -54,11 +85,15 @@ type JSONLiveLeagueGames struct {
 }
 
 type JSONGame struct {
-	Players     []JSONPlayer `json:"players"`
-	TeamRadiant JSONTeam     `json:"radiant_team"`
-	TeamDire    JSONTeam     `json:"dire_team"`
-	LobbyID     int          `json:"lobby_id"`
-	LeagueID    int          `json:"league_id"`
+	Players          []JSONPlayer `json:"players"`
+	TeamRadiant      JSONTeam     `json:"radiant_team"`
+	TeamDire         JSONTeam     `json:"dire_team"`
+	LobbyID          int          `json:"lobby_id"`
+	LeagueID         int          `json:"league_id"`
+	Scoreboard       JSONScore    `json:"scoreboard"`
+	DireSeriesWin    int          `json:"dire_series_wins"`
+	RadiantSeriesWin int          `json:"radiant_series_wins"`
+	StageName        string       `json:"stage_name"`
 }
 
 type JSONTeam struct {
@@ -69,6 +104,16 @@ type JSONTeam struct {
 type JSONPlayer struct {
 	Name     string `json:"name"`
 	AcountID int    `json:"account_id"`
+}
+
+type JSONScore struct {
+	Radiant  JSONTeamScore `json:"radiant"`
+	Dire     JSONTeamScore `json:"dire"`
+	Duration float32       `json:"duration"`
+}
+
+type JSONTeamScore struct {
+	Score int `json:"score"`
 }
 
 // JSON struct for GetLeagueListing

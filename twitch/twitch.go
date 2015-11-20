@@ -23,6 +23,37 @@ var existingFavorites []Channel
 var tournaments []string
 var all []string
 
+func Major() string {
+	requestURL := "https://api.twitch.tv/kraken/streams?game=Dota+2&broadcaster_language=en&limit=15"
+	res, err := http.Get(requestURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	streams, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var dat JSONResult
+	if err := json.Unmarshal(streams, &dat); err != nil {
+		fmt.Println("error unmarshalling filtered dota2 stream")
+		ioutil.WriteFile("favorites.json", streams, 0644)
+		log.Fatal(err)
+	}
+
+	for _, g := range dat.Streams {
+
+		if g.Channel.Name == "dotamajor" {
+			//p := strings.Split(g.Channel.Status, "-")
+			s := fmt.Sprintf("\u0002%s\u000F  %s", g.Channel.Status, g.Channel.URL)
+			return s
+		}
+
+	}
+	return "Major stream is offline."
+}
+
 func UpdateStreams(streams chan []Channel) {
 	for {
 		time.Sleep(time.Second * 30)
