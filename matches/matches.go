@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 /*
@@ -15,7 +16,7 @@ https://api.steampowered.com/IDOTA2Match_570/GetLeagueListing/v1/?key=86F1ACC15C
 */
 
 func MajorScore() string {
-	requestURL := "https://api.steampowered.com/IDOTA2Match_570/GetLiveLeagueGames/v0001/?league_id=3671&key=86F1ACC15C5F0A97465AA051D68122F6"
+	requestURL := "https://api.steampowered.com/IDOTA2Match_570/GetLiveLeagueGames/v0001/?league_id=4266&key=86F1ACC15C5F0A97465AA051D68122F6"
 	res, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatal(err)
@@ -33,7 +34,23 @@ func MajorScore() string {
 
 	for _, g := range games.Result.Games {
 		min := int(g.Scoreboard.Duration / 60)
-		return fmt.Sprintf("%v (%d) vs %v (%d) in the %s. %d-%d kills %d minutes in.\n", g.TeamRadiant.TeamName, g.RadiantSeriesWin, g.TeamDire.TeamName, g.DireSeriesWin, g.StageName, g.Scoreboard.Radiant.Score, g.Scoreboard.Dire.Score, min)
+
+		bracket := ""
+		if strings.Contains(g.StageName, "_LBR") {
+			bracket = " in the Loserbracket"
+		}
+		if strings.Contains(g.StageName, "_WBR") {
+			bracket = " in the Winnerbracket"
+		}
+		if strings.Contains(g.StageName, "_UBQuarterFinals") {
+			bracket = " in the Upper Braket Quarter Finals"
+		}
+		if strings.Contains(g.StageName, "_LBQuarterFinals") {
+			bracket = " in the Lower Braket Quarter Finals"
+		}
+		log.Println(g.StageName)
+
+		return fmt.Sprintf("%v (%d) vs %v (%d)%s. %d-%d kills %d minutes in.\n", g.TeamRadiant.TeamName, g.RadiantSeriesWin, g.TeamDire.TeamName, g.DireSeriesWin, bracket, g.Scoreboard.Radiant.Score, g.Scoreboard.Dire.Score, min)
 	}
 	return "No Major match found."
 }
@@ -48,7 +65,6 @@ func main() {
 }
 
 func liveLeagueGames() JSONLiveLeagueGamesRoot {
-	// 3671
 	requestURL := "https://api.steampowered.com/IDOTA2Match_570/GetLiveLeagueGames/v0001/?key=" + apiKey()
 	res, err := http.Get(requestURL)
 	if err != nil {
