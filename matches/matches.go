@@ -1,3 +1,4 @@
+// Package matches provides access to Dota 2 matches through the offical API.
 package matches
 
 import (
@@ -8,12 +9,7 @@ import (
 	"net/http"
 )
 
-/*
-leagues
-https://api.steampowered.com/IDOTA2Match_570/GetLeagueListing/v1/?key=86F1ACC15C5F0A97465AA051D68122F6
-
-*/
-
+// MajorScore returns the current score of the Dota 2 Majors match, if one is found.
 func MajorScore() string {
 	requestURL := "https://api.steampowered.com/IDOTA2Match_570/GetLiveLeagueGames/v0001/?league_id=4266&key=86F1ACC15C5F0A97465AA051D68122F6"
 	res, err := http.Get(requestURL)
@@ -102,7 +98,6 @@ func apiKey() string {
 	return string(file)
 }
 
-// JSON structs for LiveLeagueGames
 type JSONLiveLeagueGamesRoot struct {
 	Result JSONLiveLeagueGames `json:"result"`
 }
@@ -143,7 +138,6 @@ type JSONTeamScore struct {
 	Score int `json:"score"`
 }
 
-// JSON struct for GetLeagueListing
 type JSONLeagueListingRoot struct {
 	Result JSONLeagueListing `json:"result"`
 }
@@ -158,7 +152,6 @@ type JSONLeague struct {
 	URL      string `json:"tournament_url"`
 }
 
-// JSON struct for streams
 type JSONStreamRoot struct {
 	Result []JSONStream `json:"streams"`
 }
