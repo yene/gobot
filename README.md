@@ -18,9 +18,3 @@ Notes
 ---
 * Twitch sometimes returns channels without urls.
 * Twitch sometimes returns malformed json, couldnt catch it until now
-
-Values
----
-StageName can be DOTA_TournamentBracket_LBR1. More Data needed.
-* DOTA_TournamentBracket_UBQuarterFinals
-* DOTA_TournamentBracket_LBR1

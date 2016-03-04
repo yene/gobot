@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 )
 
 /*
@@ -34,25 +33,37 @@ func MajorScore() string {
 
 	for _, g := range games.Result.Games {
 		min := int(g.Scoreboard.Duration / 60)
-
-		bracket := ""
-		if strings.Contains(g.StageName, "_LBR") {
-			bracket = " in the Loserbracket"
-		}
-		if strings.Contains(g.StageName, "_WBR") {
-			bracket = " in the Winnerbracket"
-		}
-		if strings.Contains(g.StageName, "_UBQuarterFinals") {
-			bracket = " in the Upper Braket Quarter Finals"
-		}
-		if strings.Contains(g.StageName, "_LBQuarterFinals") {
-			bracket = " in the Lower Braket Quarter Finals"
-		}
-		log.Println(g.StageName)
-
-		return fmt.Sprintf("%v (%d) vs %v (%d)%s. %d-%d kills %d minutes in.\n", g.TeamRadiant.TeamName, g.RadiantSeriesWin, g.TeamDire.TeamName, g.DireSeriesWin, bracket, g.Scoreboard.Radiant.Score, g.Scoreboard.Dire.Score, min)
+		return fmt.Sprintf("%v (%d) vs %v (%d)%s. %d-%d kills %d minutes in.\n", g.TeamRadiant.TeamName, g.RadiantSeriesWin, g.TeamDire.TeamName, g.DireSeriesWin, nameForStage(g.StageName), g.Scoreboard.Radiant.Score, g.Scoreboard.Dire.Score, min)
 	}
 	return "No Major match found."
+}
+
+func nameForStage(s string) string {
+	log.Println(s)
+	bracket := ""
+	switch s {
+	case "#DOTA_TournamentBracket_UBQuarterFinals":
+		bracket = " in the UB Quarter Finals (BO3)"
+	case "#DOTA_TournamentBracket_UBSemiFinals":
+		bracket = " in the UB Semi Finals (BO3)" // UB Quarter Semifinals actually
+	case "#DOTA_TournamentBracket_UBFinalsMISSING":
+		bracket = " in the UB Semi Finals (BO3)"
+	case "#DOTA_TournamentBracket_FinalsMISSING":
+		bracket = " in the Grand Final (BO5)"
+	case "#DOTA_TournamentBracket_LBR1":
+		bracket = " in the LB Round 1 (BO1)"
+	case "#DOTA_TournamentBracket_LBR2":
+		bracket = " in the LB Round 2 (BO1)"
+	case "#DOTA_TournamentBracket_LBR3":
+		bracket = " in the LB Round 3 (BO3)"
+	case "#DOTA_TournamentBracket_LBR4":
+		bracket = " in the LB Round 4 (BO3)"
+	case "#DOTA_TournamentBracket_LBR5":
+		bracket = " in the LB Round 5 (BO3)"
+	case "#DOTA_TournamentBracket_LBFinals":
+		bracket = " in the LB Finals (BO3)"
+	}
+	return bracket
 }
 
 func main() {
